@@ -27,11 +27,16 @@ def homepage():
     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
     return """
-    <h1>Hello Translator-Bot</h1>
+    <h1>Hello Son-Translator-Bot</h1>
     <p>It is currently {time}.</p>
 
     <img src="http://loremflickr.com/600/400">
     """.format(time=the_time)
+
+@app.route("/webhook", methods=['GET', 'POST'])
+def webhook():
+if request.method == 'POST':
+return 'OK'
 
 @app.route("/callback", methods=['POST'])
 def callback():
