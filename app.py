@@ -26,9 +26,10 @@ handler = WebhookHandler(channel_secret)
 def homepage():
     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
-    return """
+    return os.getenv('LINE_CHANNEL_SECRET', None), " : ",os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None),"""
     <h1>Hello Son-Translator-Bot</h1>
     <p>It is currently {time}.</p>
+    <p>
 
     <img src="http://loremflickr.com/600/400">
     """.format(time=the_time)
