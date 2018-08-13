@@ -1,0 +1,15 @@
+language: python
+python:
+- 3.6
+install:
+- pip install -r requirements.txt
+script:
+- python -m unittest discover
+branches:
+  only:
+  - master
+deploy:
+  provider: heroku
+  api_key:
+    secure: QuPEGDGDzr9SyB0qwUZpxnqUPrPZNRjZhTCc4pfS91QAp8aN6lpmsYqHpuNjHAG662OhnGal1yapvN8rZ2Apc0hKy8+FQ5VyLR53BPlLEc6K7vmJzf/Q1On6OFUeOjlnNaFrPgcA/PLrO+tY1XUy4mb2vY5VGGBuffLyQzugzVsQxiEezoSoG9KUpA59DvyMhHhdro0b1QI4biZi+sXXXo4NoXqkRglarjVscAOW1Vd1SGCq3tDF22Y025ZqQVhZNY0wyeL6zVx+70WkWTSzRnI5X7+VXsBZxJlaV/lQ32hKeys5XWVv4K0DIrG91wyeE2IqiZ93r5jknpar16Q46PppiBKPEnyBOkSgrvun3bhRc7oofxKKUZXo5CW14LgSmTeOGMkfeOy2JHP8bIKEWVPXsH8FAST2H+hFRZhVnA3XDZWjm+qkJ5A1y/wCSteQWZ1dQvBkpk0eqP7Y8oZ0C3FBO5wemlDWHpVt5PrZO5oXODv6DDpbwgoG6KoTewsSH9aHzl3f3HGIL+fdkYxpbFuZPt/BtTl1kdlfbDfsfyffGZGRmB7ZCSgcMll8mhmYMxFn7AzhFoo5MWYsqp58OW8d+dCyXpIbTjAoMhqsqnvxkzwf+Sv97fMS9M2cSRXkqUrV4u54MOhon/3xJG+cDbUf9ItDn0nRwsOO00DCXDE=
+  app: son-translate-chatbot
