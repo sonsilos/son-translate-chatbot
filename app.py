@@ -13,6 +13,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 from langdetect import detect
+import logging
 
 app = Flask(__name__)
 translator = Translator()
@@ -40,7 +41,7 @@ def webhook():
     return 'OK'
 
 
-@app.route("/callback", methods=['GET', 'POST'])
+@app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
@@ -48,7 +49,7 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-
+    logging.warning("Request body: " + body)
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -64,8 +65,10 @@ def translate_text(text):
         dest='th'
 
     app.logger.info("text: " + text)
+    logging.warning("text: " + text)
     translated_text = translator.translate(text, dest).text
     app.logger.info("translated_text: " + translated_text)
+    logging.warning("translated_text: " + translated_text)
     return translated_text
 
 @handler.add(MessageEvent, message=TextMessage)
