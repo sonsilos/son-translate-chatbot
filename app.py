@@ -12,7 +12,6 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-from langdetect import detect
 
 app = Flask(__name__)
 translator = Translator()
@@ -58,12 +57,8 @@ def callback():
     return 'OK'
 
 def translate_text(text):
-    if detect(text) == 'th':
-        dest='en'
-    else:
-        dest='th'
-    translated_text = translator.translate(text, dest).text
-    return translated_text
+    en_text = translator.translate(text, dest='en').text
+    return en_text
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
