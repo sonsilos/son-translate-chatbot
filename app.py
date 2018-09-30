@@ -47,7 +47,7 @@ def callback():
 
     # get request body as text
     body = request.get_data(as_text=True)
-    # app.logger.info("Request body: " + body)
+    app.logger.info("Request body: " + body)
 
     # handle webhook body
     try:
@@ -62,7 +62,10 @@ def translate_text(text):
         dest='en'
     else:
         dest='th'
+
+    app.logger.info("text: " + text)
     translated_text = translator.translate(text, dest).text
+    app.logger.info("translated_text: " + translated_text)
     return translated_text
 
 @handler.add(MessageEvent, message=TextMessage)
