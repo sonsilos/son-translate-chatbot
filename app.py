@@ -12,6 +12,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from langdetect import detect
 
 app = Flask(__name__)
 translator = Translator()
@@ -26,7 +27,7 @@ handler = WebhookHandler(channel_secret)
 def homepage():
     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
-    return os.getenv('LINE_CHANNEL_SECRET', None), " : ",os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None),"""
+    return """
     <h1>Hello Son-Translator-Bot</h1>
     <p>It is currently {time}.</p>
     <p>
@@ -46,7 +47,7 @@ def callback():
 
     # get request body as text
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+    # app.logger.info("Request body: " + body)
 
     # handle webhook body
     try:
@@ -57,8 +58,12 @@ def callback():
     return 'OK'
 
 def translate_text(text):
-    en_text = translator.translate(text, dest='en').text
-    return en_text
+    if detect(text) == 'th':
+        dest='en'
+    else:
+        dest='th'
+    translated_text = translator.translate(text, dest).text
+    return translated_text
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
